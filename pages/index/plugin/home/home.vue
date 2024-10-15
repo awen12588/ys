@@ -1,232 +1,318 @@
 <template>
     <view style="height: 100%">
-        <!-- pages/index/plugin/home/home.wxml -->
-
-        <cu-custom :noFixed="true" :isLucency="true">
-            <view slot="content"><text class="">扩展样式</text></view>
+        <!-- pages/index/basics/layout/layout.wxml -->
+        <cu-custom bgColor="bg-gradual-blue" :isBack="true">
+            <view slot="content"><text class="text-white text-xl">数字魅力</text> </view>
         </cu-custom>
 
-        <!-- 全屏背景图 -->
-        <image src="/static/images/bg.png" mode="widthFix" class="bg-img-new"></image>
+        <view class="padding-top-xxl" :style="'top:' + CustomBar + 'px'">
+            <scroll-view scroll-x class="bg-white nav text-center fixed" :style="'top:' + CustomBar + 'px'">
+                <view :class="'cu-item ' + (index == TabCur ? 'text-blue cur' : '') + ' text-bold'" @tap="tabSelect" :data-id="index" v-for="(item, index) in tabNav" :key="index">
+                    {{ tabNav[index] }}
+                </view>
+            </scroll-view>
 
-        <!-- 页面 -->
-        <scroll-view scroll-y class="scrollPage cu-timeline">
-            <!-- 滚动图片 -->
-            <swiper
-                class="card-swiper square-dot"
-                :indicator-dots="true"
-                :circular="true"
-                :autoplay="true"
-                interval="5000"
-                duration="500"
-                @change="cardSwiper"
-                previousMargin="0.01rpx"
-                indicator-color="#8799a3"
-                indicator-active-color="#0081ff"
-                :style="'margin-top: ' + (StatusBar + CustomBar) + 'rpx;'"
-            >
-                <swiper-item :class="cardCur == index ? 'cur' : ''" @tap="jumpTo" :data-page="item.page" v-for="(item, index) in swiperList" :key="index">
-                    <view class="swiper-item">
-                        <view class="bg-img radius-lg" :style="'background-image: url(' + item.url + ');height: 360rpx;'">
-                            <view class="padding-xl text-white">
-                                <view class="padding-xs text-xl">
-                                    {{ item.title }}
-                                </view>
-                                <view class="padding-xs">
-                                    {{ item.des }}
-                                </view>
+            <block v-if="TabCur == 0">
+                <view class="margin-sm radius-lg bg-white margin-top-xl">
+					<view class="cu-bar btn-group padding-sm">
+					    <button :class="'cu-btn ' + (index == BtnCur ? 'text-blue line-blue' : '') + ''"  @tap="btnSelect" :data-id="index" v-for="(item, index) in btnNav" :key="index">{{ btnNav[index] }}</button>
+					</view>
+					
+                    <view class="padding-lr padding-tb-sm">
+                        <view class="">内外边距{size}的尺寸有 xs、sm、默认、lg、xl、xxl</view>
+                        <view class="padding-top-sm">对应大小分别为：10rpx、20rpx、30rpx、40rpx、50rpx、60rpx</view>
+                    </view>
+                    <view class="margin-lr-sm">
+                        <view class="flex flex-wrap padding text-center">
+                            <view class="basis-df padding-bottom-xs">外边距</view>
+                            <view class="basis-df padding-bottom-xs">内边距</view>
+                            <view class="basis-df">.margin-{size}</view>
+                            <view class="basis-df">.padding-{size}</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">水平方向外边距</view>
+                            <view class="basis-df padding-bottom-xs">水平方向内边距</view>
+                            <view class="basis-df">.margin-lr-{size}</view>
+                            <view class="basis-df">.padding-lr-{size}</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">垂直方向外边距</view>
+                            <view class="basis-df padding-bottom-xs">垂直方向内边距</view>
+                            <view class="basis-df">.margin-tb-{size}</view>
+                            <view class="basis-df">.padding-tb-{size}</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">上外边距</view>
+                            <view class="basis-df padding-bottom-xs">上内边距</view>
+                            <view class="basis-df">.margin-top-{size}</view>
+                            <view class="basis-df">.padding-top-{size}</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">右外边距</view>
+                            <view class="basis-df padding-bottom-xs">右内边距</view>
+                            <view class="basis-df">.margin-right-{size}</view>
+                            <view class="basis-df">.padding-right-{size}</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">下外边距</view>
+                            <view class="basis-df padding-bottom-xs">下内边距</view>
+                            <view class="basis-df">margin-bottom-{size}</view>
+                            <view class="basis-df">.padding-bottom-{size}</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">左外边距</view>
+                            <view class="basis-df padding-bottom-xs">左内边距</view>
+                            <view class="basis-df">.margin-left-{size}</view>
+                            <view class="basis-df">.padding-left-{size}</view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="margin-sm radius-lg bg-white margin-top">
+                    <view class="padding-sm text-lg">
+                        <text class="cuIcon-title text-blue"></text>
+                        圆角样式
+                    </view>
+                    <view class="padding-lr padding-tb-sm">
+                        <view class="">圆角{size}的尺寸有 默认、df、lg、xl</view>
+                        <view class="padding-top-sm">对应大小分别为：8rpx、16rpx、24rpx、32rpx</view>
+                    </view>
+                    <view class="bg-white margin-lr-sm radius-lg-bottom">
+                        <view class="flex flex-wrap padding text-center">
+                            <view class="basis-df padding-bottom-xs">四角</view>
+                            <view class="basis-df">.radius-{size}</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">顶部两角</view>
+                            <view class="basis-df">.radius-{size}-top</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">底部两角</view>
+                            <view class="basis-df">.radius-{size}-bottom</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">左上右下两角</view>
+                            <view class="basis-df">.radius-{size}-top-left</view>
+                        </view>
+                        <view class="flex flex-wrap padding solid-top text-center">
+                            <view class="basis-df padding-bottom-xs">右上坐下两角</view>
+                            <view class="basis-df">.radius-{size}-top-right</view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <block v-if="TabCur == 1">
+                <view class="margin-sm radius-lg bg-white margin-top-xl">
+                    <view class="padding-sm text-lg">
+                        <text class="cuIcon-title text-blue"></text>
+                        固定尺寸
+                    </view>
+                    <view class="padding-xs radius-lg">
+                        <view class="flex flex-wrap">
+                            <view class="basis-xs bg-blue light margin-xs padding-sm radius">xs(20%)</view>
+                            <view class="basis-df"></view>
+                            <view class="basis-sm bg-blue light margin-xs padding-sm radius">sm(40%)</view>
+                            <view class="basis-df"></view>
+                            <view class="basis-df bg-blue light margin-xs padding-sm radius">sub(50%)</view>
+                            <view class="basis-lg bg-blue light margin-xs padding-sm radius">lg(60%)</view>
+                            <view class="basis-xl bg-blue light margin-xs padding-sm radius">xl(80%)</view>
+                            <view class="basis-xxl bg-blue light margin-xs padding-sm radius">xxl(100%)</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="margin-sm radius-lg bg-white margin-top-sm">
+                    <view class="padding-sm text-lg">
+                        <text class="cuIcon-title text-blue"></text>
+                        比例布局
+                    </view>
+                    <view class="padding-sm">
+                        <view class="flex">
+                            <view class="flex-sub bg-blue light padding-sm margin-xs radius">1/2</view>
+                            <view class="flex-sub bg-blue light padding-sm margin-xs radius">1/2</view>
+                        </view>
+                        <view class="flex">
+                            <view class="flex-sub bg-blue light padding-sm margin-xs radius">1/3</view>
+                            <view class="flex-twice bg-blue light padding-sm margin-xs radius">2/3</view>
+                        </view>
+                        <view class="flex">
+                            <view class="flex-twice bg-blue light padding-sm margin-xs radius">2/3</view>
+                            <view class="flex-sub bg-blue light padding-sm margin-xs radius">1/3</view>
+                        </view>
+                        <view class="flex">
+                            <view class="flex-sub bg-blue light padding-sm margin-xs radius">1/6</view>
+                            <view class="flex-twice bg-blue light padding-sm margin-xs radius">1/3</view>
+                            <view class="flex-treble bg-blue light padding-sm margin-xs radius">1/2</view>
+                        </view>
+                        <view class="flex">
+                            <view class="flex-treble bg-blue light padding-sm margin-xs radius">3/4</view>
+                            <view class="flex-sub bg-blue light padding-sm margin-xs radius">1/4</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="margin-sm radius-lg bg-white margin-top-sm">
+                    <view class="padding-sm text-lg">
+                        <text class="cuIcon-title text-blue"></text>
+                        水平对齐(justify)
+                    </view>
+                    <view class="flex solid-bottom padding-xs justify-start">
+                        <view class="bg-blue light padding-sm margin-xs radius">start</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">start</view>
+                    </view>
+                    <view class="flex solid-bottom padding-xs justify-end">
+                        <view class="bg-blue light padding-sm margin-xs radius">end</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">end</view>
+                    </view>
+                    <view class="flex solid-bottom padding-xs justify-center">
+                        <view class="bg-blue light padding-sm margin-xs radius">center</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">center</view>
+                    </view>
+                    <view class="flex solid-bottom padding-xs justify-between">
+                        <view class="bg-blue light padding-sm margin-xs radius">between</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">between</view>
+                    </view>
+                    <view class="flex solid-bottom padding-xs justify-around">
+                        <view class="bg-blue light padding-sm margin-xs radius">around</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">around</view>
+                    </view>
+                </view>
+                <view class="margin-sm radius-lg bg-white margin-top-sm">
+                    <view class="padding-sm text-lg">
+                        <text class="cuIcon-title text-blue"></text>
+                        垂直对齐(align)
+                    </view>
+                    <view class="flex solid-bottom padding-sm align-start">
+                        <view class="bg-blue light padding-lg margin-xs radius">ColorUI-GA</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">start</view>
+                    </view>
+                    <view class="flex solid-bottom padding-sm align-end">
+                        <view class="bg-blue light padding-lg margin-xs radius">ColorUI-GA</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">end</view>
+                    </view>
+                    <view class="flex solid-bottom padding-sm align-center">
+                        <view class="bg-blue light padding-lg margin-xs radius">ColorUI-GA</view>
+                        <view class="bg-blue light padding-sm margin-xs radius">center</view>
+                    </view>
+                </view>
+            </block>
+
+            <block v-if="TabCur == 2">
+                <view class="margin-sm radius-lg bg-white margin-top-xl">
+                    <view class="padding-sm text-lg">
+                        <text class="cuIcon-title text-blue"></text>
+                        等分列
+                    </view>
+                    <view class="padding-sm">
+                        <view :class="'grid col-' + (index + 1) + ' margin-bottom-sm text-center'" v-for="(item, index) in 5" :key="index">
+                            <view
+                                :class="(index % 2 == 0 ? 'bg-green light' : 'bg-blue light') + ' padding-sm solid-bottom text-lg'"
+                                v-for="(item, index1) in (index + 1) * 2"
+                                :key="index1"
+                            >
+                                {{ index + 1 }}
                             </view>
                         </view>
-                        <video :src="item.url" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover" v-if="item.type == 'video'"></video>
                     </view>
-                </swiper-item>
-            </swiper>
-            <!-- 扩展list -->
-            <view class="nav-list margin-top">
-                <navigator
-                    hover-class="none"
-                    :url="'/pages/index/plugin/' + item.name + '/' + item.name"
-                    :class="'nav-li bg-' + item.color"
-                    v-for="(item, index) in elementsPlugins"
-                    :key="index"
-                >
-                    <image src="/static/images/0004.svg" mode="widthFix" class="image-bg" style="z-index: -2; margin: -8rpx 0rpx 0rpx -32rpx"></image>
-
-                    <view class="nav-title">{{ item.title }}</view>
-
-                    <view class="flex">
-                        <view class="flex-sub nav-name">{{ item.name }}</view>
-                        <view class="flex-sub nav-des text-right align-end">扩展</view>
+                </view>
+                <view class="margin-sm radius-lg bg-white margin-top">
+                    <view class="padding-sm text-lg">
+                        <text class="cuIcon-title text-blue"></text>
+                        等高
                     </view>
-
-                    <text :class="'cuIcon-' + item.icon"></text>
-                </navigator>
-            </view>
-            <copyright compName="copyright"></copyright>
-
-            <view class="cu-tabbar-height"></view>
-        </scroll-view>
+                    <view class="padding-sm">
+                        <view class="grid col-4 grid-square">
+                            <view
+                                class="bg-img"
+                                style="background-image: url(https://image.meiye.art/FlqKg5bugFQD5Qzm_QhGM7ET4Mtx?imageMogr2/thumbnail/450x/interlace/1)"
+                                v-for="(item, index) in 4"
+                                :key="index"
+                            ></view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+<view class="cu-tabbar-height"></view>
     </view>
 </template>
 
 <script>
-import copyright from '@/pages/template/common/copyright.vue';
-// pages/index/plugin/home/home.js
+
 const app = getApp();
 export default {
-    components: {
-        copyright
-    },
+
     data() {
         return {
-            StatusBar: app.globalData.StatusBar,
             CustomBar: app.globalData.CustomBar,
-            cardCur: 0,
-            swiperList: [
-                {
-                    id: 0,
-                    type: 'image',
-                    title: '索引列表',
-                    des: '索引跳转列表样式',
-                    url: 'https://image.meiye.art/FlqKg5bugFQD5Qzm_QhGM7ET4Mtx?imageMogr2/thumbnail/450x/interlace/1',
-                    page: '/pages/index/plugin/indexes/indexes'
-                },
-                {
-                    id: 1,
-                    type: 'image',
-                    title: '瀑布流',
-                    des: '图片瀑布流样式',
-                    url: 'https://image.meiye.art/Fha6tqRTIwHtlLW3xuZBJj8ZXSX3?imageMogr2/thumbnail/450x/interlace/1',
-                    page: '/pages/index/plugin/waterfall/waterfall'
-                },
-                {
-                    id: 2,
-                    type: 'image',
-                    title: '全屏抽屉',
-                    des: '侧边展示抽屉',
-                    url: 'https://image.meiye.art/FhHGe9NyO0uddb6D4203jevC_gzc?imageMogr2/thumbnail/450x/interlace/1',
-                    page: '/pages/index/plugin/drawer/drawer'
-                }
-            ],
-            elementsPlugins: [
-                {
-                    title: '索引列表',
-                    name: 'indexes',
-                    color: 'purple light',
-                    icon: 'vipcard'
-                },
-                {
-                    title: '微动画 ',
-                    name: 'animation',
-                    color: 'mauve light',
-                    icon: 'form'
-                },
-                {
-                    title: '全屏抽屉',
-                    name: 'drawer',
-                    color: 'pink light',
-                    icon: 'list'
-                },
-                {
-                    title: '垂直导航',
-                    name: 'verticalnav',
-                    color: 'brown light',
-                    icon: 'news'
-                },
-                {
-                    title: '聊天',
-                    name: 'chat',
-                    color: 'green light',
-                    icon: 'message'
-                },
-                {
-                    title: '瀑布流',
-                    name: 'waterfall',
-                    color: 'blue light',
-                    icon: 'pic'
-                },
-                {
-                    title: '卡片翻转',
-                    name: 'overturn',
-                    color: 'red light',
-                    icon: 'camerarotate'
-                },
-                {
-                    title: '骨架屏',
-                    name: 'skeleton',
-                    color: 'pink light',
-                    icon: 'news'
-                },
-                {
-                    title: '抽奖',
-                    name: 'draw',
-                    color: 'pink light',
-                    icon: 'present'
-                },
-                {
-                    title: '历史搜索',
-                    name: 'search',
-                    color: 'mauve light',
-                    icon: 'search'
-                },
-                {
-                    title: '打卡',
-                    name: 'clockin',
-                    color: 'cyan light',
-                    icon: 'mobile'
-                },
-                {
-                    title: '卡券',
-                    name: 'coupon',
-                    color: 'brown light',
-                    icon: 'news'
-                },
-                {
-                    title: '商品滑动',
-                    name: 'goods',
-                    color: 'green light',
-                    icon: 'shop'
-                },
-                {
-                    title: '卡片设计',
-                    name: 'design',
-                    color: 'blue light',
-                    icon: 'pic'
-                }
-            ]
+            TabCur: 0,
+			BtnCur: 0,
+            tabNav: ['外汇储备', '短期理财', '存币生息'],
+			btnNav: ['外汇储备', '外汇体验'],
+            scrollLeft: ''
         };
     },
-    options: {
-        addGlobalClass: true
-    },
     /**
-     * 组件的属性列表
+     * 生命周期函数--监听页面加载
      */
-    props: {},
+    onLoad(options) {},
     /**
-     * 组件的方法列表
+     * 生命周期函数--监听页面初次渲染完成
      */
+    onReady() {},
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow() {},
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide() {},
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload() {},
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh() {},
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom() {},
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage() {},
     methods: {
-        cardSwiper(e) {
+        /**
+         * 顶部Tab
+         */
+        tabSelect(e) {
             this.setData({
-                cardCur: e.detail.current
+                TabCur: e.currentTarget.dataset.id,
+                scrollLeft: (e.currentTarget.dataset.id - 1) * 60
             });
         },
-        // 轮播图跳转
-        jumpTo(e) {
-            return uni.navigateTo({
-                url: e.currentTarget.dataset.page
-            });
+		
+		btnSelect(e) {
+		    this.setData({
+		        BtnCur: e.currentTarget.dataset.id
+		    });
+		},
+
+        handleSwiper(e) {
+            console.log(e);
+            let { current, source } = e.detail;
+            if (source === 'autoplay' || source === 'touch') {
+                const TabCur = current;
+                this.setData({
+                    TabCur
+                });
+            }
         }
-    },
-    created: function () {}
+    }
 };
 </script>
 <style>
-/* pages/index/plugin/home/home.wxss */
-.image-bg {
-    position: absolute;
-    height: 100%;
-    opacity: 0.5;
-}
+/* pages/index/basics/layout/layout.wxss */
 </style>

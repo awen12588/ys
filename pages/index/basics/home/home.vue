@@ -165,6 +165,7 @@
 				CustomBar: app.globalData.CustomBar,
 				cardCur: 0,
 				isVisible: true,
+				DotStyle: '',
 				swiperList: [{
 						id: 0,
 						type: 'image',
@@ -264,7 +265,7 @@
 			},
 			close() {
 			    this.isVisible = false;
-			}
+			},
 		},
 		created: function() {}
 	};
@@ -307,8 +308,8 @@
 		justify-content:center;
 		height:100%;
 		.rect2 {
-			width:325px;
-			height:659px;
+			width: 80vw;
+			height:80vh;
 			display:flex;
 			align-items:center;
 			justify-content:center;
@@ -318,10 +319,10 @@
 			border-radius:10px;
 			.notice-content {
 				position:absolute;
-				top:131px;
+				top:200rpx;
 				left:0;
 				width:100%;
-				height:calc(100% - 131px);
+				height:calc(100% - 201px);
 				box-sizing:border-box;
 				padding:25px;
 				font-size:15px;
